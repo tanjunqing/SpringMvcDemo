@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @RequestMapping("/SpringMvc")
 public class RequestMappingTest {
-    private static final String HelloWorld ="HelloWorld";
+    private static final String HelloWorld = "HelloWorld";
 
     /**
      * 可以使用method 映射请求的方式 如Post、get等
@@ -47,9 +47,15 @@ public class RequestMappingTest {
         return HelloWorld;
     }
 
-    @RequestMapping(value = "/pathVariable{id}.acs",method = RequestMethod.GET)
+    @RequestMapping(value = "/pathVariable{id}.acs", method = RequestMethod.GET)
     public String pathVariable(@PathVariable("id") Integer id) {
         System.out.println("/pathVariable.acs" + id);
+        return HelloWorld;
+    }
+
+    @RequestMapping(value = "/postVariable{Id}.acs", method = RequestMethod.POST)
+    public String postVariable(@PathVariable("Id") Integer Id) {
+        System.out.println("/postVariable.acs" + Id);
         return HelloWorld;
     }
 }
