@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RequestMappingTest {
     private static final String HelloWorld = "HelloWorld";
 
+    private static final String Call = "/Call/callInfo";
+
     /**
      * 可以使用method 映射请求的方式 如Post、get等
      */
@@ -57,5 +59,11 @@ public class RequestMappingTest {
     public String postVariable(@PathVariable("Id") Integer Id) {
         System.out.println("/postVariable.acs" + Id);
         return HelloWorld;
+    }
+
+    @RequestMapping(value = "/postVariableStr{foldIds}", method = RequestMethod.POST)
+    public String postVariableStr(@PathVariable("foldIds") String foldIds) {
+        System.out.println("/postVariableStr:" + foldIds);
+        return Call;
     }
 }
