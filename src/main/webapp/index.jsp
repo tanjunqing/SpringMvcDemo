@@ -19,7 +19,7 @@
     <a href="/SpringMvc/requestMappingTest.acs">requestMappingTest</a>
     <br/>
     <form action="/SpringMvc/testMethodPost.acs", method="post">
-        <input type="submit" value="subMint">
+        <input type="submit" value="testMethodPost">
     </form>
 
     <br/>
@@ -30,7 +30,13 @@
     <br/>
     <br/>
     <form action="/SpringMvc/postVariable232123.acs", method="post">
-        <input type="submit" value="subMint">
+        <input type="submit" value="postVariable">
     </form>
+    <br/>
+    <br/>
+    <form action="/SpringMvc/postVariableStr3,4,5,6.acs", method="post">
+        <input type="submit" value="postVariableStr">
+    </form>
+
 </body>
 </html>
