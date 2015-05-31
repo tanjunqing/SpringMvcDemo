@@ -37,6 +37,8 @@
     <form action="/SpringMvc/postVariableStr3,4,5,6.acs", method="post">
         <input type="submit" value="postVariableStr">
     </form>
-
+    <br/>
+    <br/>
+    <a href="/SpringMvc/testGetRest1.acs">testGetRest</a>
 </body>
 </html>
