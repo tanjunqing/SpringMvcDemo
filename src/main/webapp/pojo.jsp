@@ -21,6 +21,8 @@
     email:<input type="text" value="" name="email">
     <br/>
     age:<input type="text" value="" name="age">
+    <br/>
+    city:<input type="text" value="" name="address.city">
     <input type="submit" value="提交PoJO">
 </form>
 </body>
