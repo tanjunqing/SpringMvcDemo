@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *  2.1 在类定义处：提供初步的请求映射信息。相对于Web应用的根目录
  *  2.2 方法处定义：提供进一步的细分银映射信息。相对于类定义处的URL，
  *      若类定义处未标注@RequestMapping,则方法处标记的URL相对于Web应用的根目录
+ *  3：函数的返回值会通过试图解析器，解析为实际的物理试图，对于org.springframework.web.servlet.view.InternalResourceViewResolver视图解析器，会做如下的解析
+ *  3.1：通过prefix + returnVal + 后缀suffix方式返回 得到实际的物理地址
  *
  */
-@RequestMapping ("/SpringMvc")
+@RequestMapping("/SpringMvc")
 public class RequestMappingTest {
     private static final String HelloWorld = "HelloWorld";
 
@@ -26,13 +28,13 @@ public class RequestMappingTest {
     /**
      * 可以使用method 映射请求的方式 如Post、get等
      */
-    @RequestMapping (value = "/testMethodPost.acs", method = RequestMethod.POST)
+    @RequestMapping(value = "/testMethodPost.acs", method = RequestMethod.POST)
     public String testMethodPost() {
         System.out.println("testMethodPost");
         return HelloWorld;
     }
 
-    @RequestMapping (value = "/requestMappingTest.acs")
+    @RequestMapping(value = "/requestMappingTest.acs")
     public String requestMappingTest() {
         System.out.println("requestMappingTest");
         return HelloWorld;
@@ -43,32 +45,32 @@ public class RequestMappingTest {
      *
      * @return
      */
-    @RequestMapping (value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName", "age!=10"})
+    @RequestMapping(value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName", "age!=10"})
     public String testParamsAndHeaders() {
         System.out.println("testParamsAndHeaders");
         return HelloWorld;
     }
 
-    @RequestMapping (value = "/pathVariable{id}.acs", method = RequestMethod.GET)
-    public String pathVariable(@PathVariable ("id") Integer id) {
+    @RequestMapping(value = "/pathVariable{id}.acs", method = RequestMethod.GET)
+    public String pathVariable(@PathVariable("id") Integer id) {
         System.out.println("/pathVariable.acs" + id);
         return HelloWorld;
     }
 
-    @RequestMapping (value = "/postVariable{Id}.acs", method = RequestMethod.POST)
-    public String postVariable(@PathVariable ("Id") Integer Id) {
+    @RequestMapping(value = "/postVariable{Id}.acs", method = RequestMethod.POST)
+    public String postVariable(@PathVariable("Id") Integer Id) {
         System.out.println("/postVariable.acs" + Id);
         return HelloWorld;
     }
 
-    @RequestMapping (value = "/postVariableStr{foldIds}", method = RequestMethod.POST)
-    public String postVariableStr(@PathVariable ("foldIds") String foldIds) {
+    @RequestMapping(value = "/postVariableStr{foldIds}", method = RequestMethod.POST)
+    public String postVariableStr(@PathVariable("foldIds") String foldIds) {
         System.out.println("/postVariableStr:" + foldIds);
         return Call;
     }
 
-    @RequestMapping (value = "/testGetRest{Id}.acs", method = RequestMethod.GET)
-    public String testGetRest(@PathVariable ("Id") Integer id) {
+    @RequestMapping(value = "/testGetRest{Id}.acs", method = RequestMethod.GET)
+    public String testGetRest(@PathVariable("Id") Integer id) {
         System.out.println("/testGetRest:" + id);
         return HelloWorld;
     }
