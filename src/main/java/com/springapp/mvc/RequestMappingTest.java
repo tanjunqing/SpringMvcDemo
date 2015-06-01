@@ -1,9 +1,16 @@
 package com.springapp.mvc;
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by Tan on 15/5/26.
@@ -21,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @RequestMapping("/SpringMvc")
 public class RequestMappingTest {
+
     private static final String HelloWorld = "HelloWorld";
 
     private static final String Call = "/Call/callInfo";
@@ -73,5 +81,24 @@ public class RequestMappingTest {
     public String testGetRest(@PathVariable("Id") Integer id) {
         System.out.println("/testGetRest:" + id);
         return HelloWorld;
+    }
+
+    @RequestMapping(value = "/testRestPostDelete{Id}.acs", method = RequestMethod.DELETE)
+    public String testRestPostDelete(@PathVariable("Id") Integer id) {
+        System.out.println("/testRestPostDelete:" + id);
+        return HelloWorld;
+    }
+
+    @RequestMapping(value = "/testRestPostPut{Id}.acs", method = RequestMethod.PUT)
+    public String testRestPostPut(@PathVariable("Id") Integer id) {
+        System.out.println("/testRestPostPut:" + id);
+        return HelloWorld;
+    }
+
+    @RequestMapping(value = "/testRestPostPut.acs", method = RequestMethod.PUT)
+    public void testRestPostPut1(@RequestParam("Id") String id, HttpServletResponse response) throws IOException {
+        System.out.println("/testRestPostPut:" + id);
+        response.getWriter().println(id);
+        //        return HelloWorld;
     }
 }
