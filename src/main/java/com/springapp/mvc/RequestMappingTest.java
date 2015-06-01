@@ -1,5 +1,6 @@
 package com.springapp.mvc;
 
+import com.springapp.mvc.PoJo.User;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -116,13 +117,27 @@ public class RequestMappingTest {
     }
 
     /**
-     * @CookieValue 用来映射Cookie值，属性同@RequestParam相同
      * @param sessionId
      * @return
+     * @CookieValue 用来映射Cookie值，属性同@RequestParam相同
      */
     @RequestMapping(value = "/getRequestCookie.acs", method = RequestMethod.GET)
     public String getRequestCookie(@CookieValue(value = "JSESSIONID", required = true, defaultValue = "") String sessionId) {
         System.out.println("getRequestCookie中的值为:" + sessionId);
+        return HelloWorld;
+    }
+
+    /**
+     * SpringMVc会按照请求的参数名和OPJO的属性进行自动配置，自动为该对象填充属性值，支持级联属性，
+     * 如Pojo包中使用Address类下的属性；需要在User类中添加需要级联的类，并且设置Get,Set属性
+     * 使用时候 在jsp页面中 定义为：address:<input type="text" value="" name="address.city">
+     * 其中name 中的address 就是在User类中定义的Address类的名称
+     * 如果只需要使用User类中的参数 定义为：email:<input type="text" value="" name="email">
+     * 其中name 中的email 就是User类中定义的属性
+     */
+    @RequestMapping(value = "/testPojo.acs", method = RequestMethod.POST)
+    public String testPojo(User user) {
+        System.out.println("testPojo:" + user.toString());
         return HelloWorld;
     }
 }
