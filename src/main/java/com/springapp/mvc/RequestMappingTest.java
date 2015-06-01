@@ -4,11 +4,15 @@ import com.springapp.mvc.PoJo.User;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Tan on 15/5/26.
@@ -30,6 +34,8 @@ public class RequestMappingTest {
     private static final String HelloWorld = "HelloWorld";
 
     private static final String Call = "/Call/callInfo";
+
+    private static final String ModelAndViewJsp = "ModelAndView";
 
     /**
      * 可以使用method 映射请求的方式 如Post、get等
@@ -156,6 +162,35 @@ public class RequestMappingTest {
     public String testHttpServletAPI(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("testHttpServletAPI--HttpServletRequest:" + request.toString() + "HttpServletResponse:" + response.toString());
         return HelloWorld;
+    }
+
+    /**
+     * 1.目标返回值可以用ModelAndView
+     * 2.其中可以包含视图和模型信息
+     * 3.SpringMvc会把ModelAndView的Model中的数据放入到Request域对象中
+     * 4.requestScope是一个定义， 表明一个http请求的整个声明周期，
+     * 它只是一个定义而已，不是一个对象。
+     * EL中你可以在这个周期中放置、获取对象。
+     * （当然，其实真正的操作也是针对request对象的）
+     */
+    @RequestMapping(value = "/testModelAndVeiw.acs", method = RequestMethod.GET)
+    public ModelAndView testModelAndVeiw() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(ModelAndViewJsp);
+        modelAndView.addObject("message", "HelloWorld");
+        return modelAndView;
+    }
+
+    /**
+     * 目标方法可以添加Map类型（实际上也可以是Model类型、或者ModelMap类型）的参数
+     * @param maps
+     * @return
+     */
+    @RequestMapping(value = "/testMap.acs", method = RequestMethod.GET)
+    public String testMap(Map<String, Object> maps) {
+        System.out.println(maps.getClass().getName());
+        maps.put("message", "Jack,Hello,Fk");
+        return ModelAndViewJsp;
     }
 
 }

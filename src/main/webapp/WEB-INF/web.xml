@@ -32,6 +32,7 @@
         <!--<url-pattern>/</url-pattern>-->
 	</servlet-mapping>
     <welcome-file-list>
-        <welcome-file>pojo.jsp</welcome-file>
+        <!--<welcome-file>pojo.jsp</welcome-file>-->
+        <welcome-file>modelAndViewTest.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
