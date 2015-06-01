@@ -5,6 +5,7 @@
 
 	<display-name>Spring MVC Application</display-name>
 
+    <!-- 配置Rest风格的URL -->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>

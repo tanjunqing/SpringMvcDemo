@@ -40,5 +40,24 @@
     <br/>
     <br/>
     <a href="/SpringMvc/testGetRest1.acs">testGetRest</a>
+    <br/>
+    <br/>
+    <form action="/SpringMvc/testRestPostDelete.acs" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="testRestPostDelete">
+    </form>
+    <br/>
+    <br/>
+    <form action="/SpringMvc/testRestPostPut123.acs" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="submit" value="testRestPostPut">
+    </form>
+    <br/>
+    <br/>
+    <form action="/SpringMvc/testRestPostPut.acs" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="text" value="123" name="Id" >
+        <input type="submit" value="testRestPostPut">
+    </form>
 </body>
 </html>
