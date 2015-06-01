@@ -3,10 +3,7 @@ package com.springapp.mvc;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,17 +94,35 @@ public class RequestMappingTest {
 
     /**
      * @RequestParam 来映射请求参数
-     *  value 值即请求参数的参数名
-     *  required 参数是否必须，默认为true，表示该参数值必须有，如果是false 表示不是必须
-     *  defaultValue 请求参数的默认值
-     * @param id
-     * @param response
-     * @throws IOException
+     * value 值即请求参数的参数名
+     * required 参数是否必须，默认为true，表示该参数值必须有，如果是false 表示不是必须
+     * defaultValue 请求参数的默认值
      */
     @RequestMapping(value = "/testRestPostPut.acs", method = RequestMethod.PUT)
     public void testRestPostPut1(@RequestParam(value = "Id", required = true, defaultValue = "") String id, HttpServletResponse response) throws IOException {
         System.out.println("/testRestPostPut:" + id);
         response.getWriter().println(id);
         //        return HelloWorld;
+    }
+
+    /**
+     * @RequestHeader 用来映射请求头
+     * 方法同@RequestParam 相同
+     */
+    @RequestMapping(value = "/getRequestHeader.acs", method = RequestMethod.GET)
+    public String getRequestHeader(@RequestHeader(value = "Accept-Language") String al) {
+        System.out.println("getRequestHeader中的参数Accept-Language的值:" + al);
+        return HelloWorld;
+    }
+
+    /**
+     * @CookieValue 用来映射Cookie值，属性同@RequestParam相同
+     * @param sessionId
+     * @return
+     */
+    @RequestMapping(value = "/getRequestCookie.acs", method = RequestMethod.GET)
+    public String getRequestCookie(@CookieValue(value = "JSESSIONID", required = true, defaultValue = "") String sessionId) {
+        System.out.println("getRequestCookie中的值为:" + sessionId);
+        return HelloWorld;
     }
 }
