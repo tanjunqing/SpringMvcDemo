@@ -95,8 +95,17 @@ public class RequestMappingTest {
         return HelloWorld;
     }
 
+    /**
+     * @RequestParam 来映射请求参数
+     *  value 值即请求参数的参数名
+     *  required 参数是否必须，默认为true，表示该参数值必须有，如果是false 表示不是必须
+     *  defaultValue 请求参数的默认值
+     * @param id
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping(value = "/testRestPostPut.acs", method = RequestMethod.PUT)
-    public void testRestPostPut1(@RequestParam("Id") String id, HttpServletResponse response) throws IOException {
+    public void testRestPostPut1(@RequestParam(value = "Id", required = true, defaultValue = "") String id, HttpServletResponse response) throws IOException {
         System.out.println("/testRestPostPut:" + id);
         response.getWriter().println(id);
         //        return HelloWorld;
