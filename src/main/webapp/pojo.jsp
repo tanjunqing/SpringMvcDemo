@@ -25,5 +25,20 @@
     city:<input type="text" value="" name="address.city">
     <input type="submit" value="提交PoJO">
 </form>
+
+<H1>测试HttpServlet原生API</H1>
+
+<form action="/SpringMvc/testHttpServletAPI.acs" method="post">
+    userName:<input type="text" value="" name="userName">
+    <br/>
+    passWord:<input type="text" value="" name="passWord">
+    <br/>
+    email:<input type="text" value="" name="email">
+    <br/>
+    age:<input type="text" value="" name="age">
+    <br/>
+    city:<input type="text" value="" name="address.city">
+    <input type="submit" value="提交PoJO">
+</form>
 </body>
 </html>
