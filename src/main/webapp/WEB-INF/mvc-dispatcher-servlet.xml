@@ -5,10 +5,14 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- 配置自定义扫描包 -->
     <context:component-scan base-package="com.springapp.mvc"/>
 
+    <!--配置试图解析器：日和吧Handler 方法返回值解析为实际的物理试图 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置前缀-->
         <property name="prefix" value="/WEB-INF/pages/"/>
+        <!--配置后缀 -->
         <property name="suffix" value=".jsp"/>
     </bean>
 </beans>
