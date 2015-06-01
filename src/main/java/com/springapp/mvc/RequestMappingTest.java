@@ -140,4 +140,22 @@ public class RequestMappingTest {
         System.out.println("testPojo:" + user.toString());
         return HelloWorld;
     }
+
+    /**
+     * 可以使用原生的ServletAPI作为目标方法的具体的参数具体支持以下的类型
+     * HttpServletRequest
+     * HttpServletRequest
+     * HttpSeesion
+     * java.security.Principal
+     * Local InputStream
+     * OutputStream
+     * Reader
+     * Writer
+     */
+    @RequestMapping(value = "/testHttpServletAPI.acs", method = RequestMethod.POST)
+    public String testHttpServletAPI(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("testHttpServletAPI--HttpServletRequest:" + request.toString() + "HttpServletResponse:" + response.toString());
+        return HelloWorld;
+    }
+
 }
