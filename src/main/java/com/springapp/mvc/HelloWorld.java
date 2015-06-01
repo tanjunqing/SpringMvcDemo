@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloWorld {
     @RequestMapping("helloWorld.acs")
-    public String helloWorld(){
+    public String helloWorld() {
         System.out.println("HelloWorld");
         return "HelloWorld";
     }
