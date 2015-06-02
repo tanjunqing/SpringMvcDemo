@@ -11,6 +11,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -40,8 +41,7 @@ import java.util.Objects;
  *  3：函数的返回值会通过试图解析器，解析为实际的物理试图，对于org.springframework.web.servlet.view.InternalResourceViewResolver视图解析器，会做如下的解析
  *  3.1：通过prefix + returnVal + 后缀suffix方式返回 得到实际的物理地址
  *
- */
-public class RequestMappingTest {
+ */ public class RequestMappingTest {
 
     private static final String HelloWorld = "HelloWorld";
 
@@ -244,18 +244,25 @@ public class RequestMappingTest {
 
     @RequestMapping(value = "/testgetSessionAttrbuters.acs", method = RequestMethod.GET)
     public void getSessionAttrbuters(ModelMap modelMap,HttpServletResponse response) throws Exception {
-        User user = (User) modelMap.get("user");
+        User user = (User)modelMap.get("user");
         response.getWriter().println(user.toString());
     }
 
     @RequestMapping(value = "/testGetHttpSession.acs", method = RequestMethod.GET)
     public void getSessionAttrbuters(HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
     }
 
+    /**
+     * 1.执行@ModelAttribute 注解修饰的方法：从数据库中取出对象，把对象放入到Map中，键为：user
+     * 2.SpringMvc 从Map中取出User对象，并且把表单的请求参数赋给User对象相应的属性
+     * 3.SpringMvc 把上述对象传入目标方法的对象
+     * 注意：在@ModelAttribute 修饰的方法中，放入到Map时的键，需要和目标方法的入参
+     * 类型的第一个字母小写的字符串一致！
+     */
     @RequestMapping(value = "/testPersonPojo.acs", method = RequestMethod.POST)
-    public String savePerson(Person person1) {
-        System.out.println(person1.toString());
+    public String savePerson(Person person) {
+        System.out.println(person.toString());
         return ModelAndViewJsp;
     }
 
@@ -264,19 +271,12 @@ public class RequestMappingTest {
     public void getPerson(@RequestParam(value = "id", required = false) Long id,Map<String, Object> map) {
         System.out.println("调用了@ModelAttribute方法：Id" + id);
         if (id != null) {
-            Person person1 = new Person();
-            person1.setId(2L);
-            person1.setUserName("liu");
-            person1.setPassWord("654321");
-            map.put("person",person1);
             Person person = new Person();
             person.setId(3L);
             person.setUserName("tan1");
             person.setAge("31");
             person.setPassWord("123456");
-            map.put("person1",person);
-
-
+            map.put("person",person);
         }
     }
 }
