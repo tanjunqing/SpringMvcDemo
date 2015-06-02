@@ -1,15 +1,22 @@
 package com.springapp.mvc;
 
 import com.springapp.mvc.PoJo.User;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
@@ -18,7 +25,9 @@ import java.util.Objects;
  * Created by Tan on 15/5/26.
  */
 
+@SessionAttributes(value = {"user"}, types = {String.class})
 @Controller
+@RequestMapping("/SpringMvc")
 /** 1：RequestMapping注解为控制器指定可以处理那些URL的请求
  *  2：在控制器的类定义已经方法定义处都可以标注
  *  2.1 在类定义处：提供初步的请求映射信息。相对于Web应用的根目录
@@ -28,7 +37,6 @@ import java.util.Objects;
  *  3.1：通过prefix + returnVal + 后缀suffix方式返回 得到实际的物理地址
  *
  */
-@RequestMapping("/SpringMvc")
 public class RequestMappingTest {
 
     private static final String HelloWorld = "HelloWorld";
@@ -57,7 +65,7 @@ public class RequestMappingTest {
      *
      * @return
      */
-    @RequestMapping(value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName", "age!=10"})
+    @RequestMapping(value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName" ,"age!=10"})
     public String testParamsAndHeaders() {
         System.out.println("testParamsAndHeaders");
         return HelloWorld;
@@ -106,7 +114,7 @@ public class RequestMappingTest {
      * defaultValue 请求参数的默认值
      */
     @RequestMapping(value = "/testRestPostPut.acs", method = RequestMethod.PUT)
-    public void testRestPostPut1(@RequestParam(value = "Id", required = true, defaultValue = "") String id, HttpServletResponse response) throws IOException {
+    public void testRestPostPut1(@RequestParam(value = "Id", required = true, defaultValue = "") String id,HttpServletResponse response) throws IOException {
         System.out.println("/testRestPostPut:" + id);
         response.getWriter().println(id);
         //        return HelloWorld;
@@ -159,7 +167,7 @@ public class RequestMappingTest {
      * Writer
      */
     @RequestMapping(value = "/testHttpServletAPI.acs", method = RequestMethod.POST)
-    public String testHttpServletAPI(HttpServletRequest request, HttpServletResponse response) {
+    public String testHttpServletAPI(HttpServletRequest request,HttpServletResponse response) {
         System.out.println("testHttpServletAPI--HttpServletRequest:" + request.toString() + "HttpServletResponse:" + response.toString());
         return HelloWorld;
     }
@@ -177,20 +185,62 @@ public class RequestMappingTest {
     public ModelAndView testModelAndVeiw() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(ModelAndViewJsp);
-        modelAndView.addObject("message", "HelloWorld");
+        modelAndView.addObject("message","HelloWorld");
         return modelAndView;
     }
 
     /**
      * 目标方法可以添加Map类型（实际上也可以是Model类型、或者ModelMap类型）的参数
+     *
      * @param maps
      * @return
      */
     @RequestMapping(value = "/testMap.acs", method = RequestMethod.GET)
     public String testMap(Map<String, Object> maps) {
         System.out.println(maps.getClass().getName());
-        maps.put("message", "Jack,Hello,Fk");
+        maps.put("message","Jack,Hello,Fk");
         return ModelAndViewJsp;
     }
 
+    /**
+     * 测试使用ModelMap类型的参数
+     *
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(value = "/testModelMap.acs", method = RequestMethod.GET)
+    public String testModelMap(ModelMap modelMap) {
+        System.out.println(modelMap.getClass().getName());
+        modelMap.put("message","Jack,Hello,FK,MOdelMap");
+        return ModelAndViewJsp;
+    }
+
+    @RequestMapping(value = "/testModel.acs", method = RequestMethod.GET)
+    public String testModel(Model model) {
+        System.out.println(model.getClass().getName());
+        model.addAttribute("message","Jack,Hello,FK,ModelTest");
+        return ModelAndViewJsp;
+    }
+
+    @RequestMapping(value = "/testSessionAttributes.acs", method = RequestMethod.GET)
+    public String testSessionAttributes(Map<Object, Object> map,HttpServletRequest request) {
+        User user = new User();
+        user.setUserName("Hello");
+        user.setPassWord("1234");
+        map.put("user",user);
+        map.put("school","atshengguigu");
+        request.getSession().setAttribute("user",user);
+        return ModelAndViewJsp;
+    }
+
+    @RequestMapping(value = "/testgetSessionAttrbuters.acs", method = RequestMethod.GET)
+    public void getSessionAttrbuters(ModelMap modelMap,HttpServletResponse response) throws Exception {
+        User user = (User) modelMap.get("user");
+        response.getWriter().println(user.toString());
+    }
+
+    @RequestMapping(value = "/testGetHttpSession.acs", method = RequestMethod.GET)
+    public void getSessionAttrbuters(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+    }
 }
