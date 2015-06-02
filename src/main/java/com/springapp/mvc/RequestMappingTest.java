@@ -1,7 +1,11 @@
 package com.springapp.mvc;
 
+import com.springapp.mvc.PoJo.Person;
+import com.springapp.mvc.PoJo.Person1;
 import com.springapp.mvc.PoJo.User;
 import com.sun.deploy.net.HttpResponse;
+import com.sun.deploy.perf.PerfRollup;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -65,7 +69,7 @@ public class RequestMappingTest {
      *
      * @return
      */
-    @RequestMapping(value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName" ,"age!=10"})
+    @RequestMapping(value = "/testParamsAndHeaders.acs", method = RequestMethod.GET, params = {"userName","age!=10"})
     public String testParamsAndHeaders() {
         System.out.println("testParamsAndHeaders");
         return HelloWorld;
@@ -222,6 +226,11 @@ public class RequestMappingTest {
         return ModelAndViewJsp;
     }
 
+    /**
+     * @SessionAttributes 除了可以通过属性名指定需要放到会话中的属性外(实际上使用的是 value 属性值),
+     * 还可以通过模型属性的对象类型指定哪些模型属性需要放到会话中(实际上使用的是 types 属性值)
+     * 注意: 该注解只能放在类的上面. 而不能修饰放方法.
+     */
     @RequestMapping(value = "/testSessionAttributes.acs", method = RequestMethod.GET)
     public String testSessionAttributes(Map<Object, Object> map,HttpServletRequest request) {
         User user = new User();
@@ -242,5 +251,32 @@ public class RequestMappingTest {
     @RequestMapping(value = "/testGetHttpSession.acs", method = RequestMethod.GET)
     public void getSessionAttrbuters(HttpSession session) {
         User user = (User) session.getAttribute("user");
+    }
+
+    @RequestMapping(value = "/testPersonPojo.acs", method = RequestMethod.POST)
+    public String savePerson(Person person1) {
+        System.out.println(person1.toString());
+        return ModelAndViewJsp;
+    }
+
+
+    @ModelAttribute
+    public void getPerson(@RequestParam(value = "id", required = false) Long id,Map<String, Object> map) {
+        System.out.println("调用了@ModelAttribute方法：Id" + id);
+        if (id != null) {
+            Person person1 = new Person();
+            person1.setId(2L);
+            person1.setUserName("liu");
+            person1.setPassWord("654321");
+            map.put("person",person1);
+            Person person = new Person();
+            person.setId(3L);
+            person.setUserName("tan1");
+            person.setAge("31");
+            person.setPassWord("123456");
+            map.put("person1",person);
+
+
+        }
     }
 }
