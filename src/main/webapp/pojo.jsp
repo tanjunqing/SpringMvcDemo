@@ -40,5 +40,14 @@
     city:<input type="text" value="" name="address.city">
     <input type="submit" value="提交PoJO">
 </form>
+
+<form action="/SpringMvc/testPersonPojo.acs" method="post">
+    <input type="hidden" value="1" name="id"/>
+    userName:<input type="text" value="tan" name="userName">
+    <br/>
+    age:<input type="text" value="30" name="age">
+    <br/>
+    <input type="submit" value="提交PersonPoJO">
+</form>
 </body>
 </html>
