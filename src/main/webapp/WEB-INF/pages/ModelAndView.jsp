@@ -11,6 +11,10 @@
     <title></title>
 </head>
 <body>
-<h1>${requestScope.message}</h1>
+<h1>ModelAndView、ModelMap、Model、Map测试</h1>
+${requestScope.message}
+<h1>SessionAttributesTest</h1>
+Session:${sessionScope.user}
+Session:${sessionScope.school}
 </body>
 </html>
