@@ -23,4 +23,7 @@
 </body>
 <H1>测试Cookie</H1>
 <a href="/SpringMvc/getRequestCookie.acs">测试@RequestCookie</a>
+
+<H1>测试Global</H1>
+<a href="/SpringMvc/testGlobal.acs">测试Global</a>
 </html>
