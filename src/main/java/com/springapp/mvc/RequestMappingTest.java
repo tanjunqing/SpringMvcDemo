@@ -1,30 +1,18 @@
 package com.springapp.mvc;
 
 import com.springapp.mvc.PoJo.Person;
-import com.springapp.mvc.PoJo.Person1;
 import com.springapp.mvc.PoJo.User;
-import com.sun.deploy.net.HttpResponse;
-import com.sun.deploy.perf.PerfRollup;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Tan on 15/5/26.
@@ -48,6 +36,8 @@ import java.util.Objects;
     private static final String Call = "/Call/callInfo";
 
     private static final String ModelAndViewJsp = "ModelAndView";
+
+    private static final String GLOBAL = "Global";
 
     /**
      * 可以使用method 映射请求的方式 如Post、get等
@@ -314,4 +304,16 @@ import java.util.Objects;
             map.put("person",person);
         }
     }
+
+    /**
+     * 测试 Global全球化
+     *
+     * @return
+     */
+    @RequestMapping(value = "/testGlobal.acs", method = RequestMethod.GET)
+    public String testGlobal() {
+        System.out.println("testGlobal:::");
+        return GLOBAL;
+    }
+
 }
