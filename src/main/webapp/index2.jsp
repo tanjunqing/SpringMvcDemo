@@ -19,11 +19,14 @@
     <input type="submit" value="testRestPostPut">
 </form>
 <h1>测试@RequestHeader头</h1>
-<a href="/SpringMvc/getRequestHeader.acs">测试@RequestHeader头</a>
+<a href="/SpringMvc/getRequestHeader.acs">测试 @RequestHeader头</a>
 </body>
-<H1>测试Cookie</H1>
-<a href="/SpringMvc/getRequestCookie.acs">测试@RequestCookie</a>
+<H1>测试 Cookie</H1>
+<a href="/SpringMvc/getRequestCookie.acs">测试 @RequestCookie</a>
 
-<H1>测试Global</H1>
-<a href="/SpringMvc/testGlobal.acs">测试Global</a>
+<H1>测试 Global</H1>
+<a href="/SpringMvc/testGlobal.acs">测试 Global</a>
+
+<H1>测试 testRedirect</H1>
+<a href="/SpringMvc/testRedirect.acs">测试 testRedirect</a>
 </html>

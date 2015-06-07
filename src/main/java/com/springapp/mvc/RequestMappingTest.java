@@ -234,13 +234,13 @@ import java.util.Map;
 
     @RequestMapping(value = "/testgetSessionAttrbuters.acs", method = RequestMethod.GET)
     public void getSessionAttrbuters(ModelMap modelMap,HttpServletResponse response) throws Exception {
-        User user = (User) modelMap.get("user");
+        User user = (User)modelMap.get("user");
         response.getWriter().println(user.toString());
     }
 
     @RequestMapping(value = "/testGetHttpSession.acs", method = RequestMethod.GET)
     public void getSessionAttrbuters(HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
     }
 
     /**
@@ -316,4 +316,29 @@ import java.util.Map;
         return GLOBAL;
     }
 
+    /**
+     * 测试BeanNameViewResolver
+     * BeanNameViewResolver 将逻辑视图名解析为一个 Bean，Bean 的 Id 等于逻辑视图名（注意返回的视图的名称 头字母小写。）
+     *
+     * @return
+     */
+    @RequestMapping(value = "/testBeanNameView.acs", method = RequestMethod.GET)
+    public String testBeanNameView() {
+        /**
+         * 注意此处的返回值是 views包中 com.springapp.mvc.views.HelloView 的头字母小写
+         */
+        return "helloView";
+    }
+
+    /**
+     * 测试Redirest 重定向
+     *
+     * @return
+     */
+    @RequestMapping(value = "/testRedirect.acs", method = RequestMethod.GET)
+    public String testRedirest() {
+        System.out.println("testRedirect");
+        return "redirect:/index.jsp";
+        //        return  "redirect:http://www.chinatcc.com";
+    }
 }

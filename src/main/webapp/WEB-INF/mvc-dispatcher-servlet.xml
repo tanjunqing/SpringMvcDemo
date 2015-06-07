@@ -1,14 +1,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 配置自定义扫描包 -->
     <context:component-scan base-package="com.springapp.mvc"/>
 
-    <!--配置试图解析器：日和吧Handler 方法返回值解析为实际的物理试图 -->
+    <!-- 配置BeanName视图解析器: 使用视图的名字解析视图-->
+    <!-- 通过order 属性来定义视图的优先级，order 值越小优先级越大 -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="100"/>
+    </bean>
+
+    <!--配置试图解析器：如何把 Handler 方法返回值解析为实际的物理试图 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--配置前缀-->
         <property name="prefix" value="/WEB-INF/pages/"/>
@@ -16,8 +23,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 配置国家化资源文件 -->
+    <!-- 配置全球化资源文件 -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="i18n"/>
     </bean>
+
+    <!-- 配置直接转发的页面-->
+    <!-- 可以直接相应转发的页面，而无需再经过 Handler 的方法 -->
+    <mvc:view-controller path="pojo" view-name="pojo"/>
+
+    <mvc:annotation-driven></mvc:annotation-driven>
 </beans>
